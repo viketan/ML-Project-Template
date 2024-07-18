@@ -1,9 +1,9 @@
-numpy 
-pandas
-seaborn
-matplotlib
-scikit-learn
-xgboost
-catboost
-lightgbm
+numpy==1.26.4
+pandas==2.2.2
+seaborn==0.13.2cls
+matplotlib==3.9.1
+scikit-learn==1.5.1
+xgboost==2.1.0
+catboost==1.2.5
+lightgbm==4.4.0
 #-e .

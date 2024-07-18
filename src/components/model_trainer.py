@@ -10,7 +10,7 @@ from sklearn.svm import SVR
 from sklearn.neighbors import KNeighborsRegressor
 from sklearn.ensemble import RandomForestRegressor,AdaBoostRegressor,GradientBoostingRegressor
 from xgboost import XGBRegressor
-#from catboost import CatBoostRegressor
+from catboost import CatBoostRegressor
 from lightgbm import LGBMRegressor
 
 @dataclass
@@ -34,7 +34,7 @@ class ModelTrainer():
                 "Adaboost": AdaBoostRegressor(),
                 "Gradient Boosting": GradientBoostingRegressor(),
                 "xgboost": XGBRegressor(),
-                #"catboost": CatBoostRegressor(verbose=False),
+                "catboost": CatBoostRegressor(verbose=False),
                 "LightBGM": LGBMRegressor()
             }
             evaluated_models = evaluate_model(models,X_train,y_train,X_test,y_test)
