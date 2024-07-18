@@ -3,6 +3,8 @@ from src.logger import logging
 from src.exception import CustomException
 import pickle
 from sklearn.metrics import r2_score
+from src.constant import hyperparams
+from sklearn.model_selection import GridSearchCV
 
 def save_object(obj,filepath):
     try:
@@ -46,5 +48,20 @@ def find_best_model(evaluated_models):
         logging.error(f"Error occurred in finding the best model: {e}")
         raise CustomException(e, sys)
 
+def hyperparameter_tuning(best_model_name, best_model, X_train, y_train):
+        try:
+            if best_model_name in hyperparams:
+                param_grid = hyperparams[best_model_name]
+                grid_search = GridSearchCV(estimator=best_model, param_grid=param_grid, scoring='r2', cv=5)
+                grid_search.fit(X_train, y_train)
+                best_model = grid_search.best_estimator_
+                best_params = grid_search.best_params_
+                logging.info(f"Hyperparameter tuning completed for {best_model_name}. Best parameters: {best_params}")
+            else:
+                logging.warning(f"No hyperparameters defined for {best_model_name}. Skipping tuning.")
+        except Exception as e:
+            logging.error(f"Error occurred during hyperparameter tuning for {best_model_name}: {e}")
+            raise CustomException(e, sys)
+        return best_model
 
           

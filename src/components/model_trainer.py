@@ -1,7 +1,7 @@
 import os,sys
 from src.exception import CustomException
 from src.logger import logging
-from src.utils import save_object,evaluate_model,find_best_model
+from src.utils import save_object,evaluate_model,find_best_model,hyperparameter_tuning
 from dataclasses import dataclass
 
 from sklearn.linear_model import LinearRegression,Ridge,Lasso
@@ -39,6 +39,7 @@ class ModelTrainer():
             }
             evaluated_models = evaluate_model(models,X_train,y_train,X_test,y_test)
             best_model_name,best_model_obj,best_best_score = find_best_model(evaluated_models)
+            best_model_obj = hyperparameter_tuning(best_model_name, best_model_obj, X_train, y_train)
             logging.info(f"Successful found best model: {best_model_name} with score{best_best_score}")
             save_object(best_model_obj,self.config.model_filepath)
         except Exception as e:
