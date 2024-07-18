@@ -20,7 +20,7 @@ class DataIngestion:
         logging.info("Initiated Data Ingestion")
         try:
             # Read data from source
-            df = pd.read_csv("../data/stud.csv")
+            df = pd.read_csv("data\stud.csv")
             logging.info("Successfully read data from source")
 
             # Create directory for artifacts if it doesn't exist
