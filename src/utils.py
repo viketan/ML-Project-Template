@@ -6,6 +6,16 @@ from sklearn.metrics import r2_score
 from src.constant import hyperparams
 from sklearn.model_selection import GridSearchCV
 
+def load_object(filepath):
+    try:
+        with open(filepath, 'rb') as f:
+            obj = pickle.load(f)
+        logging.info(f"Successfully Loaded Object from {filepath}")
+        return obj
+    except Exception as e:
+        logging.error(f"Error occurred in loading object: {e}")
+        raise CustomException(e, sys)
+
 def save_object(obj,filepath):
     try:
         with open(filepath, 'wb') as f:

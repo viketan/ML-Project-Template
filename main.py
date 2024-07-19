@@ -3,23 +3,12 @@ from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel
 
+from src.pipeline.predict_pipeline import InputData,Predict
+
 app = FastAPI()
 
 # Set up Jinja2 templates
 templates = Jinja2Templates(directory="templates")
-
-class InputData(BaseModel):
-    gender: str
-    race_ethnicity: str
-    parental_level_of_education: str
-    lunch: str
-    test_preparation_course: str
-    reading_score: int
-    writing_score: int
-
-# Simulating a prediction function for math score
-def predict_math_score(data: InputData) -> int:
-    return int((data.reading_score + data.writing_score) / 2)
 
 @app.get("/", response_class=HTMLResponse)
 async def read_index(request: Request):
@@ -45,7 +34,8 @@ async def submit_data(
         reading_score=reading_score,
         writing_score=writing_score
     )
-    math_score = predict_math_score(data)
+    predict = Predict()
+    math_score = predict.get_prediction(data)
     result_data = data.dict()
     result_data['math_score'] = math_score
 

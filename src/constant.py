@@ -37,3 +37,6 @@ hyperparams = {
         'num_leaves': [31, 127]
     }
 }
+
+PREPROCESSOR_FILEPATH = "artifact\preprocessing.pkl"
+MODEL_FILEPATH = "artifact\model.pkl"
