@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Data Form</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f0f0f0;
+      }
+      .form-container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+      }
+      input,
+      select {
+        width: 100%;
+        padding: 8px;
+        box-sizing: border-box;
+      }
+      button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="form-container">
+      <form id="student-form">
+        <div class="form-group">
+          <label for="gender">Gender</label>
+          <select id="gender" name="gender" required>
+            <option value="female">Female</option>
+            <option value="male">Male</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="race_ethnicity">Race/Ethnicity</label>
+          <select id="race_ethnicity" name="race_ethnicity">
+            <option value="group A">Group A</option>
+            <option value="group B">Group B</option>
+            <option value="group C">Group C</option>
+            <option value="group D">Group D</option>
+            <option value="group E">Group E</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="parental_level_of_education"
+            >Parental Level of Education</label
+          >
+          <select
+            id="parental_level_of_education"
+            name="parental_level_of_education"
+          >
+            <option value="bachelor's degree">Bachelor's Degree</option>
+            <option value="some college">Some College</option>
+            <option value="master's degree">Master's Degree</option>
+            <option value="associate's degree">Associate's Degree</option>
+            <option value="high school">High School</option>
+            <option value="some high school">Some High School</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="lunch">Lunch</label>
+          <select id="lunch" name="lunch">
+            <option value="standard">Standard</option>
+            <option value="free/reduced">Free/Reduced</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="test_preparation_course">Test Preparation Course</label>
+          <select id="test_preparation_course" name="test_preparation_course">
+            <option value="none">None</option>
+            <option value="completed">Completed</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="reading_score">Reading Score</label>
+          <input type="number" id="reading_score" name="reading_score" />
+        </div>
+        <div class="form-group">
+          <label for="writing_score">Writing Score</label>
+          <input type="number" id="writing_score" name="writing_score" />
+        </div>
+        <button type="submit">Predict</button>
+      </form>
+    </div>
+    <script>
+      document
+        .getElementById("student-form")
+        .addEventListener("submit", async function (event) {
+          event.preventDefault();
+
+          const formData = new FormData(event.target);
+          const data = {
+            gender: formData.get("gender"),
+            race_ethnicity: formData.get("race_ethnicity"),
+            parental_level_of_education: formData.get(
+              "parental_level_of_education"
+            ),
+            lunch: formData.get("lunch"),
+            test_preparation_course: formData.get("test_preparation_course"),
+            reading_score: parseInt(formData.get("reading_score")),
+            writing_score: parseInt(formData.get("writing_score")),
+          };
+
+          const response = await fetch("/predict/", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: new URLSearchParams(data),
+          });
+
+          if (response.ok) {
+            const result = await response.text(); // Expect HTML response
+            document.open();
+            document.write(result);
+            document.close();
+          } else {
+            console.error("Error submitting the form");
+          }
+        });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prediction Result</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #f0f0f0;
+      }
+      .result-container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      .result-group {
+        margin-bottom: 15px;
+      }
+      label {
+        font-weight: bold;
+      }
+      p {
+        margin: 0;
+      }
+      .highlight {
+        font-size: 1.2em;
+        color: #007bff;
+        font-weight: bold;
+        padding: 10px;
+        border-radius: 4px;
+        background-color: #e7f0ff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="result-container">
+      <div class="result-group">
+        <label>Gender:</label>
+        <p>{{ gender }}</p>
+      </div>
+      <div class="result-group">
+        <label>Race/Ethnicity:</label>
+        <p>{{ race_ethnicity }}</p>
+      </div>
+      <div class="result-group">
+        <label>Parental Level of Education:</label>
+        <p>{{ parental_level_of_education }}</p>
+      </div>
+      <div class="result-group">
+        <label>Lunch:</label>
+        <p>{{ lunch }}</p>
+      </div>
+      <div class="result-group">
+        <label>Test Preparation Course:</label>
+        <p>{{ test_preparation_course }}</p>
+      </div>
+      <div class="result-group">
+        <label>Reading Score:</label>
+        <p>{{ reading_score }}</p>
+      </div>
+      <div class="result-group">
+        <label>Writing Score:</label>
+        <p>{{ writing_score }}</p>
+      </div>
+      <div class="result-group">
+        <label>Predicted Math Score:</label>
+        <p class="highlight">{{ math_score }}</p>
+      </div>
+    </div>
+  </body>
+</html>
