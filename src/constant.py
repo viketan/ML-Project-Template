@@ -1,3 +1,4 @@
+import os
 hyperparams = {
     "Linear Regression": {},  # No hyperparameters to tune
     "Ridge Regression": {
@@ -37,6 +38,6 @@ hyperparams = {
         'num_leaves': [31, 127]
     }
 }
-
-PREPROCESSOR_FILEPATH = "artifact\preprocessing.pkl"
-MODEL_FILEPATH = "artifact\model.pkl"
+artifact_dir = "artifact"
+PREPROCESSOR_FILEPATH = os.path.join(artifact_dir, "preprocessing.pkl")
+MODEL_FILEPATH = os.path.join(artifact_dir, "model.pkl")
